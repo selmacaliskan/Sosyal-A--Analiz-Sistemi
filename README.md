@@ -72,11 +72,11 @@ Düzenle
 
 ├── Makefile
 
-└── docs
-/
+└── docs/
     ├── technical_documentation.
     └── sample_output.md
-Kurulum
+    
+##Kurulum
 Gereksinimler
 GCC Derleyicisi
 
@@ -89,6 +89,7 @@ bash
 Kopyala
 Düzenle
 gcc -o social_network src/social_network.c -std=c99 -Wall
+
 Make kullanarak:
 
 bash
