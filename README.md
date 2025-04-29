@@ -43,22 +43,38 @@ Etkileşim Hesaplama: Ulaşılan kullanıcı sayısına göre en etkili kullanı
 Kırmızı-Siyah Ağaç (Red-Black Tree): Kullanıcı aramalarında verimli sorgulama için dengeli ağaç yapısı.
 
 Dizin Yapısı
+
 css
+
 Kopyala
+
 Düzenle
+
 .
 ├── README.md
+
+
 ├── src/
+
 │   ├── social_network.c
+
 │   ├── user.h
+
 │   ├── rb_tree.h
+
 │   ├── dfs.h
+
 │   └── analysis.h
+
 ├── data/
+
 │   └── veriseti.txt
+
 ├── Makefile
-└── docs/
-    ├── technical_documentation.md
+
+└── docs
+/
+    ├── technical_documentation.
     └── sample_output.md
 Kurulum
 Gereksinimler
