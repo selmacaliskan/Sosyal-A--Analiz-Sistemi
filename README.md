@@ -1,168 +1,106 @@
-# Sosyal-Ag-Analiz-Sistemi
-İlişki ağacı oluşturarak (kullanıcılar için) Depth-first arama ile belirli mesafedeki arkadaşları bulur.Ortak arkadaş analizi Topluluk tespiti Etki alanı hesaplama (bir kullanıcının ağ üzerindeki etkisi)  yürütülür ayrıca krmızı-siyah ağaç veri yapısı kullanılarak, kullanıcıların kimlik bilgilerine göre dengeli bir arama yapısı oluşturulur.
+##Arkadaşlık Ağı Yönetimi (Friendship Network Management)
+Bu C programı, bir arkadaşlık ağı simülasyonu oluşturur. Kullanıcılar arasında arkadaşlık ilişkileri kurar, ortak arkadaşları bulur, toplulukları keşfeder ve en etkili kullanıcıyı (en fazla kişiye ulaşabilen) tespit eder. Program, kullanıcı verilerini bir dosyadan okur ve çeşitli ağ işlemleri gerçekleştirebilir.
 
-# C Dilinde Sosyal Ağ Analizi
+##Özellikler
+Kullanıcılar ve Arkadaşlar: Kullanıcılar oluşturulabilir ve birbirlerine arkadaşlıklar eklenebilir.
 
-Bu depo, sosyal ağı modelleyen ve çeşitli sosyal ağ analiz tekniklerini uygulayan grafik ve ağaç veri yapıları kullanan bir C programını içerir.
+Arkadaşlık Mesafesi: Belirli bir kullanıcının arkadaşlarının belirli bir mesafeye kadar olanlarını bulma.
 
-## İçindekiler
-- [Genel Bakış](#genel-bakış)
-- [Özellikler](#özellikler)
-- [Dizin Yapısı](#dizin-yapısı)
-- [Kurulum](#kurulum)
-- [Kullanım](#kullanım)
-- [Teknik Detaylar](#teknik-detaylar)
-- [Katkıda Bulunma](#katkıda-bulunma)
-- [Lisans](#lisans)
+Ortak Arkadaşlar: İki kullanıcı arasındaki ortak arkadaşları bulma.
 
-## Genel Bakış
+Topluluklar: Kullanıcılar arasındaki arkadaşlık ilişkilerine dayanarak, topluluklar (bağlantılı bileşenler) tespit edilir.
 
-Bu program, kullanıcıları ve aralarındaki ilişkileri modelleyerek bir sosyal ağı simüle eder. Kullanıcılar arasındaki ilişkileri verimli şekilde saklamak ve analiz etmek için hem grafik hem de ağaç tabanlı veri yapıları uygular. Program, bir metin dosyasından veri okuyarak; belirli mesafedeki arkadaşları bulma, ortak arkadaşları tespit etme, toplulukları belirleme ve etkili kullanıcıları bulma gibi analizler gerçekleştirir.
+Etkili Kullanıcı: Arkadaşlık ağı üzerinde en fazla kişiye ulaşabilen (etkili) kullanıcı bulunur.
 
-## Özellikler
+##📁Dosya Formatı
+Program, kullanıcı ve arkadaşlık bilgilerini veriseti.txt adlı bir dosyadan okur. Dosya formatı aşağıdaki gibi olmalıdır:
 
-- **Kullanıcı Yönetimi**: Kullanıcı ekleme ve arkadaşlık ilişkileri kurma.  
-- **Derinlik Öncelikli Arama (DFS)**: Belirli bir kullanıcıdan belirli mesafedeki arkadaşları bulma.  
-- **Ortak Arkadaş Analizi**: İki kullanıcı arasındaki ortak arkadaşları belirleme. 
-- **Topluluk Tespiti**: Ağ içindeki bağlantılı kullanıcı gruplarını tanımlama.  
-- **Etkileşim Hesaplama**: Ulaşılan kullanıcı sayısına göre en etkili kullanıcıyı belirleme.  
-- **Kırmızı-Siyah Ağaç (Red-Black Tree)**: Kullanıcı aramalarında verimli sorgulama için dengeli ağaç yapısı. 
-
-## Dizin Yapısı
-
-Kullanıcı Yönetimi: Kullanıcı ekleme ve arkadaşlık ilişkileri kurma.
-
-Derinlik Öncelikli Arama (DFS): Belirli bir kullanıcıdan belirli mesafedeki arkadaşları bulma.
-
-Ortak Arkadaş Analizi: İki kullanıcı arasındaki ortak arkadaşları belirleme.
-
-Topluluk Tespiti: Ağ içindeki bağlantılı kullanıcı gruplarını tanımlama.
-
-Etkileşim Hesaplama: Ulaşılan kullanıcı sayısına göre en etkili kullanıcıyı belirleme.
-
-Kırmızı-Siyah Ağaç (Red-Black Tree): Kullanıcı aramalarında verimli sorgulama için dengeli ağaç yapısı.
-
-Dizin Yapısı
-
-css
-
+php-template
 Kopyala
-
 Düzenle
+USER <user_id>
+FRIEND <user_id1> <user_id2>
+USER <user_id> komutu yeni bir kullanıcı oluşturur.
 
-## 📁 Dizin Yapısı
+FRIEND <user_id1> <user_id2> komutu, iki kullanıcıyı arkadaş yapar.
 
-```plaintext
+##Örnek bir dosya:
 
-├── README.md
-├── src/
-│   ├── social_network.c
-│   ├── user.h
-│   ├── rb_tree.h
-│   ├── dfs.h
-│   └── analysis.h
-├── data/
-│   └── veriseti.txt
-├── Makefile
-└── docs/
-    ├── technical_documentation.md
-    └── sample_output.md
-```
+sql
+Kopyala
+Düzenle
+USER 101
+USER 102
+USER 103
+FRIEND 101 102
+FRIEND 101 103
+Kullanıcı Fonksiyonları
+add_user(int id): Yeni bir kullanıcı ekler.
 
-##Kurulum
-Gereksinimler
-GCC Derleyicisi
+add_friend(int id1, int id2): İki kullanıcıyı arkadaş yapar.
 
-GNU Make (isteğe bağlı)
+find_friends_at_distance(int start_id, int distance): Bir kullanıcıdan belirli bir mesafede bulunan arkadaşları bulur.
 
-Derleme
-GCC kullanarak:
+find_common_friends(int id1, int id2): İki kullanıcı arasındaki ortak arkadaşları bulur.
+
+find_communities(): Ağdaki toplulukları (bağlantılı bileşenleri) tespit eder.
+
+find_influential_user(): En fazla kişiye ulaşabilen kullanıcıyı bulur.
+
+##Kullanım
+Veri Dosyasını Hazırlama: Kullanıcıları ve arkadaşlık ilişkilerini içeren bir veriseti.txt dosyası oluşturun.
+
+Programı Çalıştırma: Aşağıdaki komutu kullanarak programı çalıştırın:
 
 bash
 Kopyala
 Düzenle
-gcc -o social_network src/social_network.c -std=c99 -Wall
+gcc -o friendship_network friendship_network.c
+./friendship_network
+Sonuçlar: Program, kullanıcılar ve arkadaşlar hakkında bilgiler yazdıracak ve ayrıca kullanıcıların ağ üzerindeki etkilerini analiz edecektir.
 
-Make kullanarak:
-
-bash
+##Örnek Çıktılar
+Kullanıcılar ve Arkadaşlar:
+yaml
 Kopyala
 Düzenle
-make
-Kullanım
-Aşağıdaki formatta veriseti.txt adlı bir veri dosyası oluşturun:
-
-css
+Kullanici 101: 102 103
+Kullanici 102: 101
+Kullanici 103: 101
+101 Kullanıcısının 2 Adım Uzaklıktaki Arkadaşları:
+yaml
 Kopyala
 Düzenle
-USER [id]
-FRIEND [id1] [id2]
-Açıklamalar:
-
-USER [id]: Belirtilen ID’ye sahip yeni bir kullanıcı ekler.
-
-FRIEND [id1] [id2]: İki kullanıcı arasında arkadaşlık ilişkisi kurar.
-
-Derlenmiş programı çalıştırın:
-
-bash
+Kullanici 101 icin 2 adim uzakliktaki arkadaslar: 103
+Ortak Arkadaşlar:
+yaml
 Kopyala
 Düzenle
-./social_network
-Program aşağıdaki çıktıları üretir:
-
-Kullanıcılar ve onların arkadaş listeleri.
-
-Belirli mesafedeki arkadaşlar
-
-İki kullanıcı arasındaki ortak arkadaşlar.
-
-Ağdaki topluluklar
-
-Kırmızı-siyah ağaçta kullanıcı arama sonucu.
-
-Ağdaki en etkili kullanıcı
-
-Teknik Detaylar
-Veri Yapıları
-Kullanıcı Yapısı
-c
+Kullanici 101 ve Kullanici 102 icin ortak arkadaslar: 103
+Kullanici 101 ve Kullanici 103 icin ortak arkadaslar: 102
+Topluluklar:
+yaml
 Kopyala
 Düzenle
-typedef struct User {
-    int user_id;
-    int friends[MAX_FRIENDS];
-    int friend_count;
-} User;
-Kırmızı-Siyah Ağaç Düğümü
-c
+Topluluk 1: 101 102 103
+Toplam 1 topluluk bulundu.
+En Etkili Kullanıcı:
+rust
 Kopyala
 Düzenle
-typedef struct RBNode {
-    int user_id;
-    Color color;
-    struct RBNode *left, *right, *parent;
-} RBNode;
-Temel Algoritmalar
-Derinlik Öncelikli Arama (DFS): Sosyal grafiği dolaşmak için kullanılır.
+Kullanici 101 -> 2 kisiye erisebiliyor.
+En etkili kullanici: 101 (2 kisiye erisebiliyor)
+Kullanım Notları
+Maksimum kullanıcı sayısı: 100 (MAX_USERS)
 
-Kırmızı-Siyah Ağaç İşlemleri: Dengeli arama işlemleri için.
+Her kullanıcının maksimum arkadaş sayısı: 10 (MAX_FRIENDS)
 
-Topluluk Tespiti: Bağlantılı bileşen analizi kullanılarak yapılır.
+Kullanıcı ID'leri 0'dan başlayarak numaralanır.
 
-Etkileşim Hesaplama: Grafik dolaşımı ile erişim ölçülür.
-
-Katkıda Bulunma
-Katkılar memnuniyetle karşılanır! Lütfen Pull Request göndererek katkıda bulunun.
-
-Lisans
-Bu proje MIT Lisansı ile lisanslanmıştır – detaylar için LICENSE dosyasına bakınız.
-
-İstersen bu içeriği Markdown dosyası olarak da dışa aktarabilirim. Yardımcı olmamı ister misin?
+##Katkı Sağlama
+Bu proje açık kaynaklıdır. Herhangi bir katkı yapmak isterseniz, pull request'lerinizi gönderebilirsiniz.
 
 
 
 
 
-
- MIT Lisansı ile lisanslanmıştır – detaylar için LICENSE dosyasına bakınız.
