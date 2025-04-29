@@ -1,0 +1,126 @@
+# Teknik Dokümantasyon: Sosyal Ağ Analiz Sistemi
+
+## Giriş
+
+Bu belge, C dilinde uygulanan Sosyal Ağ Analiz Sistemi'nin detaylı teknik bir genel bakışını sunmaktadır. Sistem, bir sosyal ağdaki kullanıcılar arasındaki ilişkileri modellemekte ve graf ve ağaç veri yapılarını kullanarak çeşitli analiz araçları sağlamaktadır.
+
+## Mimari
+
+Sistem aşağıdaki bileşenlerle tasarlanmıştır:
+
+1. **Kullanıcı Yönetimi**: Kullanıcı oluşturma ve ilişki kurma işlemlerini yönetir
+2. **Graf Temsili**: Sosyal ağı temsil etmek için komşuluk listeleri kullanır
+3. **Kırmızı-Siyah Ağaç**: ID'ye göre verimli kullanıcı araması sağlar
+4. **Analiz Algoritmaları**: Çeşitli sosyal ağ analiz özelliklerini uygular
+
+## Veri Yapıları
+
+### Kullanıcı Yapısı
+
+```c
+typedef struct User {
+    int user_id;
+    int friends[MAX_FRIENDS];  // Arkadaş ID'lerinin dizisi
+    int friend_count;          // Arkadaş sayısı
+} User;
+```
+
+Kullanıcı yapısı, sosyal grafiğimizdeki bir düğümü temsil eder. Her kullanıcının benzersiz bir tanımlayıcısı vardır ve bir arkadaş listesi (komşuluk listesi) barındırır.
+
+### Kırmızı-Siyah Ağaç Düğümü
+
+```c
+typedef struct RBNode {
+    int user_id;
+    Color color;
+    struct RBNode *left, *right, *parent;
+} RBNode;
+```
+
+Kırmızı-Siyah Ağaç, ID'ye göre kullanıcılar için O(log n) arama süresi sağlar. Bu dengeli ikili arama ağacı aşağıdaki özellikleri korur:
+- Her düğüm ya KIRMIZI ya da SİYAH'tır
+- Kök SİYAH'tır
+- Her yaprak (NULL) SİYAH'tır
+- Eğer bir düğüm KIRMIZI ise, her iki çocuğu da SİYAH'tır
+- Bir düğümden onun soyundan gelen yapraklara giden tüm yollar aynı sayıda SİYAH düğüm içerir
+
+## Temel Algoritmalar
+
+### Derinlik Öncelikli Arama (DFS)
+
+DFS, birkaç analiz fonksiyonunun belkemiğidir:
+
+1. **Belirli Mesafedeki Arkadaşları Bulma**:
+   - Belirli bir mesafedeki tüm kullanıcıları bulmak için derinlik takibi ile DFS kullanır
+   - Zaman Karmaşıklığı: O(V + E), V kullanıcıların sayısı ve E arkadaşlıkların sayısıdır
+
+2. **Topluluk Tespiti**:
+   - Graftaki bağlantılı bileşenleri tanımlamak için DFS kullanır
+   - Her bağlantılı bileşen bir topluluğu temsil eder
+   - Zaman Karmaşıklığı: O(V + E)
+
+3. **Etki Hesaplaması**:
+   - Başlangıç düğümünden erişilebilen kullanıcı sayısını saymak için DFS kullanır
+   - Zaman Karmaşıklığı: Kullanıcı başına O(V + E)
+
+### Kırmızı-Siyah Ağaç İşlemleri
+
+1. **Ekleme**:
+   - Standart ikili arama ağacı eklemesi, ardından özellikleri korumak için düzeltme
+   - Zaman Karmaşıklığı: O(log n)
+
+2. **Arama**:
+   - Standart ikili arama ağacı araması
+   - Zaman Karmaşıklığı: O(log n)
+
+## Performans Değerlendirmeleri
+
+1. **Bellek Kullanımı**:
+   - Kullanıcılar ve arkadaş listeleri için sabit boyutlu diziler ölçeklenebilirliği sınırlar
+   - Bellek kullanımı yaklaşık olarak O(V + E)'dir, V kullanıcıların sayısı ve E arkadaşlıkların sayısıdır
+
+2. **Zaman Karmaşıklığı**:
+   - Çoğu işlem küçük ve orta ölçekli ağlar için makul zaman karmaşıklığına sahiptir
+   - Kullanıcı arama: Kırmızı-Siyah Ağaç kullanarak O(log n)
+   - Graf dolaşma: DFS kullanarak O(V + E)
+
+## Sınırlamalar
+
+1. **Maksimum Kısıtlamalar**:
+   - MAX_USERS (100) kullanıcı ile sınırlıdır
+   - Her kullanıcı MAX_FRIENDS (10) arkadaş ile sınırlıdır
+   - Bu kısıtlamalar başlık dosyalarında değiştirilebilir
+
+2. **Dinamik Bellek Yok**:
+   - Arkadaş listeleri dinamik yapılar yerine sabit boyutlu diziler kullanır
+
+## Gelecek İyileştirmeler
+
+1. **Modüler Uygulama**:
+   - Kodu ilgili başlıklarla birden çok kaynak dosyasına (.c) bölme
+   - Modüler derleme için bir yapı sistemi uygulama
+
+2. **Dinamik Veri Yapıları**:
+   - Sabit dizileri dinamik veri yapılarıyla değiştirme
+   - Arkadaş listeleri için bağlı listeler veya dinamik diziler kullanma
+
+3. **Ek Analizler**:
+   - Arasındalık merkeziliği hesaplaması uygulama
+   - En kısa yol algoritmaları ekleme
+   - Daha gelişmiş algoritmalar kullanarak topluluk tespiti uygulama
+
+4. **Görselleştirme**:
+   - Graf görselleştirme araçlarıyla uyumlu çıktı formatları ekleme
+
+## Hata İşleme
+
+Mevcut uygulama temel hata kontrolü sağlar:
+- Maksimum kullanıcı ve arkadaş limitleri için kontroller
+- İşlemlerden önce kullanıcıların var olduğunu doğrulama
+- Yinelenen arkadaşlıkları önleme
+
+Üretim kullanımı için daha sağlam hata işleme uygulanabilir.
+
+---
+
+Bu dokümantasyon, Sosyal Ağ Analiz Sistemi'nin mimarisini, algoritmalarını ve performans özelliklerini açıklayan teknik bir genel bakış sunmaktadır.
