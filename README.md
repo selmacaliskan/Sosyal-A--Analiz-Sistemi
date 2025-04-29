@@ -50,32 +50,25 @@ Kopyala
 
 Düzenle
 
-.
+## 📁 Dizin Yapısı
+
+```plaintext
+
 ├── README.md
-
-
 ├── src/
-
 │   ├── social_network.c
-
 │   ├── user.h
-
 │   ├── rb_tree.h
-
 │   ├── dfs.h
-
 │   └── analysis.h
-
 ├── data/
-
 │   └── veriseti.txt
-
 ├── Makefile
-
 └── docs/
-    ├── technical_documentation.
+    ├── technical_documentation.md
     └── sample_output.md
-    
+```
+
 ##Kurulum
 Gereksinimler
 GCC Derleyicisi
