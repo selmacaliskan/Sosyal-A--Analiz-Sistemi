@@ -1,93 +1,86 @@
-##Arkadaşlık Ağı Yönetimi (Friendship Network Management)
+# Arkadaşlık Ağı Yönetimi (Friendship Network Management)
+
 Bu C programı, bir arkadaşlık ağı simülasyonu oluşturur. Kullanıcılar arasında arkadaşlık ilişkileri kurar, ortak arkadaşları bulur, toplulukları keşfeder ve en etkili kullanıcıyı (en fazla kişiye ulaşabilen) tespit eder. Program, kullanıcı verilerini bir dosyadan okur ve çeşitli ağ işlemleri gerçekleştirebilir.
 
-##Özellikler
-Kullanıcılar ve Arkadaşlar: Kullanıcılar oluşturulabilir ve birbirlerine arkadaşlıklar eklenebilir.
+## Özellikler
 
-Arkadaşlık Mesafesi: Belirli bir kullanıcının arkadaşlarının belirli bir mesafeye kadar olanlarını bulma.
+**Kullanıcılar ve Arkadaşlar:** Kullanıcılar oluşturulabilir ve birbirlerine arkadaşlıklar eklenebilir.
 
-Ortak Arkadaşlar: İki kullanıcı arasındaki ortak arkadaşları bulma.
+**Arkadaşlık Mesafesi:** Belirli bir kullanıcının arkadaşlarının belirli bir mesafeye kadar olanlarını bulma.
 
-Topluluklar: Kullanıcılar arasındaki arkadaşlık ilişkilerine dayanarak, topluluklar (bağlantılı bileşenler) tespit edilir.
+**Ortak Arkadaşlar:** İki kullanıcı arasındaki ortak arkadaşları bulma.
 
-Etkili Kullanıcı: Arkadaşlık ağı üzerinde en fazla kişiye ulaşabilen (etkili) kullanıcı bulunur.
+**Topluluklar:** Kullanıcılar arasındaki arkadaşlık ilişkilerine dayanarak, topluluklar (bağlantılı bileşenler) tespit edilir.
 
-##📁Dosya Formatı
-Program, kullanıcı ve arkadaşlık bilgilerini veriseti.txt adlı bir dosyadan okur. Dosya formatı aşağıdaki gibi olmalıdır:
+**Etkili Kullanıcı:** Arkadaşlık ağı üzerinde en fazla kişiye ulaşabilen (etkili) kullanıcı bulunur.
 
-php-template
-Kopyala
-Düzenle
-USER <user_id>
-FRIEND <user_id1> <user_id2>
-USER <user_id> komutu yeni bir kullanıcı oluşturur.
+## 📁Dosya Formatı
 
-FRIEND <user_id1> <user_id2> komutu, iki kullanıcıyı arkadaş yapar.
+Program, kullanıcı ve arkadaşlık bilgilerini `veriseti.txt` adlı bir dosyadan okur. Dosya formatı aşağıdaki gibi olmalıdır:
 
-##Örnek bir dosya:
 
-sql
-Kopyala
-Düzenle
-USER 101
-USER 102
-USER 103
-FRIEND 101 102
-FRIEND 101 103
-Kullanıcı Fonksiyonları
-add_user(int id): Yeni bir kullanıcı ekler.
+**`USER <user_id>`** komutu yeni bir kullanıcı oluşturur.
 
-add_friend(int id1, int id2): İki kullanıcıyı arkadaş yapar.
+**`FRIEND <user_id1> <user_id2>`** komutu, iki kullanıcıyı arkadaş yapar.
 
-find_friends_at_distance(int start_id, int distance): Bir kullanıcıdan belirli bir mesafede bulunan arkadaşları bulur.
 
-find_common_friends(int id1, int id2): İki kullanıcı arasındaki ortak arkadaşları bulur.
+## Kullanıcı Fonksiyonları
 
-find_communities(): Ağdaki toplulukları (bağlantılı bileşenleri) tespit eder.
+**add_user(int id):** Yeni bir kullanıcı ekler.
 
-find_influential_user(): En fazla kişiye ulaşabilen kullanıcıyı bulur.
+**add_friend(int id1, int id2):** İki kullanıcıyı arkadaş yapar.
 
-##Kullanım
-Veri Dosyasını Hazırlama: Kullanıcıları ve arkadaşlık ilişkilerini içeren bir veriseti.txt dosyası oluşturun.
+**find_friends_at_distance(int start_id, int distance):** Bir kullanıcıdan belirli bir mesafede bulunan arkadaşları bulur.
 
-Programı Çalıştırma: Aşağıdaki komutu kullanarak programı çalıştırın:
+**find_common_friends(int id1, int id2):** İki kullanıcı arasındaki ortak arkadaşları bulur.
 
-bash
-Kopyala
-Düzenle
+**find_communities():** Ağdaki toplulukları (bağlantılı bileşenleri) tespit eder.
+
+**find_influential_user():** En fazla kişiye ulaşabilen kullanıcıyı bulur.
+
+
+### Veri Dosyasını Hazırlama
+
+Kullanıcıları ve arkadaşlık ilişkilerini içeren bir `veriseti.txt` dosyası oluşturun.
+
+### Programı Çalıştırma
+
+Aşağıdaki komutu kullanarak programı çalıştırın:
+
+```bash
 gcc -o friendship_network friendship_network.c
 ./friendship_network
-Sonuçlar: Program, kullanıcılar ve arkadaşlar hakkında bilgiler yazdıracak ve ayrıca kullanıcıların ağ üzerindeki etkilerini analiz edecektir.
+ ```
 
-##Örnek Çıktılar
+
+
+## Sonuçlar
+Program, kullanıcılar ve arkadaşlar hakkında bilgiler yazdıracak ve ayrıca kullanıcıların ağ üzerindeki etkilerini analiz edecektir.
+
+### Örnek Çıktılar
 Kullanıcılar ve Arkadaşlar:
-yaml
-Kopyala
-Düzenle
+
+
 Kullanici 101: 102 103
 Kullanici 102: 101
 Kullanici 103: 101
 101 Kullanıcısının 2 Adım Uzaklıktaki Arkadaşları:
-yaml
-Kopyala
-Düzenle
+
+
 Kullanici 101 icin 2 adim uzakliktaki arkadaslar: 103
 Ortak Arkadaşlar:
-yaml
-Kopyala
-Düzenle
+
+
 Kullanici 101 ve Kullanici 102 icin ortak arkadaslar: 103
 Kullanici 101 ve Kullanici 103 icin ortak arkadaslar: 102
 Topluluklar:
-yaml
-Kopyala
-Düzenle
+
+
 Topluluk 1: 101 102 103
 Toplam 1 topluluk bulundu.
 En Etkili Kullanıcı:
-rust
-Kopyala
-Düzenle
+
+
 Kullanici 101 -> 2 kisiye erisebiliyor.
 En etkili kullanici: 101 (2 kisiye erisebiliyor)
 Kullanım Notları
@@ -97,10 +90,8 @@ Her kullanıcının maksimum arkadaş sayısı: 10 (MAX_FRIENDS)
 
 Kullanıcı ID'leri 0'dan başlayarak numaralanır.
 
-##Katkı Sağlama
-Bu proje açık kaynaklıdır. Herhangi bir katkı yapmak isterseniz, pull request'lerinizi gönderebilirsiniz.
-
-
+## Katkı Sağlama
+Bu proje açık kaynaklıdır. Herhangi bir katkı yapmak isterseniz, pull request'lerinizi gönderebilirsiniz
 
 
 
